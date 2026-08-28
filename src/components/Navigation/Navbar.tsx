@@ -55,67 +55,69 @@ export function Navbar() {
   const showSolidBackground = !isHomePage ? isScrolledPastHero : isScrolledPastHero;
 
   return (
-    <nav 
-      className={`fixed top-0 left-0 right-0 w-full z-50 transition-all duration-300 text-slate-900 ${
-        showSolidBackground 
-          ? 'bg-white/95 backdrop-blur-md shadow-sm py-4' 
-          : 'bg-gradient-to-b from-white/90 via-white/50 to-transparent py-6'
-      }`}
-      aria-label="Main Navigation"
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between">
-          <Link to="/" className="flex-shrink-0 flex items-center group">
-            <svg className="w-6 h-6 mr-2 text-slate-800 group-hover:text-slate-600 transition-colors" viewBox="0 0 24 24" fill="currentColor">
-              <ellipse cx="12" cy="19" rx="9" ry="4" />
-              <ellipse cx="12" cy="13" rx="6" ry="3" />
-              <ellipse cx="12" cy="8" rx="4" ry="2" />
-            </svg>
-            <span className="font-display text-2xl font-bold tracking-wider">Zen</span>
-          </Link>
-
-          <div className="hidden md:flex flex-1 justify-center space-x-10">
-            {navLinks.map((link) => {
-              const isActive = location.pathname === link.path;
-              return (
-                <Link 
-                  key={link.name} 
-                  to={link.path}
-                  className={`text-sm font-bold tracking-wide transition-colors hover:text-slate-500 drop-shadow-sm ${
-                    isActive ? 'border-b-2 border-slate-800 pb-1' : 'pb-1'
-                  }`}
-                >
-                  {link.name}
-                </Link>
-              );
-            })}
-          </div>
-
-          <div className="flex items-center space-x-6">
-            <button 
-              aria-label="Search" 
-              className="hover:opacity-75 transition-opacity"
-              onClick={() => setIsSearchOpen(true)}
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+    <>
+      <nav 
+        className={`fixed top-0 left-0 right-0 w-full z-50 transition-all duration-300 text-slate-900 ${
+          showSolidBackground 
+            ? 'bg-white/95 backdrop-blur-md shadow-sm py-4' 
+            : 'bg-gradient-to-b from-white/90 via-white/50 to-transparent py-6'
+        }`}
+        aria-label="Main Navigation"
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between">
+            <Link to="/" className="flex-shrink-0 flex items-center group">
+              <svg className="w-6 h-6 mr-2 text-slate-800 group-hover:text-slate-600 transition-colors" viewBox="0 0 24 24" fill="currentColor">
+                <ellipse cx="12" cy="19" rx="9" ry="4" />
+                <ellipse cx="12" cy="13" rx="6" ry="3" />
+                <ellipse cx="12" cy="8" rx="4" ry="2" />
               </svg>
-            </button>
-            
-            <CartIcon />
+              <span className="font-display text-2xl font-bold tracking-wider">Zen</span>
+            </Link>
 
-            <button 
-              className="md:hidden flex items-center p-2 rounded-md hover:bg-black/10 transition-colors"
-              onClick={() => setIsMobileMenuOpen(true)}
-              aria-label="Open Mobile Menu"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            </button>
+            <div className="hidden md:flex flex-1 justify-center space-x-10">
+              {navLinks.map((link) => {
+                const isActive = location.pathname === link.path;
+                return (
+                  <Link 
+                    key={link.name} 
+                    to={link.path}
+                    className={`text-sm font-bold tracking-wide transition-colors hover:text-slate-500 drop-shadow-sm ${
+                      isActive ? 'border-b-2 border-slate-800 pb-1' : 'pb-1'
+                    }`}
+                  >
+                    {link.name}
+                  </Link>
+                );
+              })}
+            </div>
+
+            <div className="flex items-center space-x-6">
+              <button 
+                aria-label="Search" 
+                className="hover:opacity-75 transition-opacity"
+                onClick={() => setIsSearchOpen(true)}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              </button>
+              
+              <CartIcon />
+
+              <button 
+                className="md:hidden flex items-center p-2 rounded-md hover:bg-black/10 transition-colors"
+                onClick={() => setIsMobileMenuOpen(true)}
+                aria-label="Open Mobile Menu"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+              </button>
+            </div>
           </div>
         </div>
-      </div>
+      </nav>
 
       {/* Mobile Menu Backdrop */}
       <div 
@@ -165,6 +167,6 @@ export function Navbar() {
       </div>
 
       <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
-    </nav>
+    </>
   );
 }
