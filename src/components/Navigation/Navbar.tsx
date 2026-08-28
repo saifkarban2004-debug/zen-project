@@ -119,7 +119,7 @@ export function Navbar() {
 
       {/* Mobile Menu Backdrop */}
       <div 
-        className={`fixed inset-0 bg-slate-900/20 backdrop-blur-sm z-[55] transition-opacity duration-300 md:hidden ${
+        className={`fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-[55] transition-opacity duration-300 md:hidden ${
           isMobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
         }`}
         onClick={() => setIsMobileMenuOpen(false)}
@@ -128,7 +128,7 @@ export function Navbar() {
 
       {/* Mobile Menu Drawer */}
       <div 
-        className={`fixed inset-y-0 right-0 w-72 bg-white text-slate-900 z-[60] shadow-2xl transition-transform duration-300 ease-in-out flex flex-col md:hidden ${
+        className={`fixed inset-y-0 right-0 w-[80vw] max-w-sm bg-white text-slate-900 z-[60] shadow-2xl transition-transform duration-300 ease-in-out flex flex-col md:hidden ${
           isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
