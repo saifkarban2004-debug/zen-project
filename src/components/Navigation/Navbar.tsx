@@ -117,14 +117,24 @@ export function Navbar() {
         </div>
       </div>
 
+      {/* Mobile Menu Backdrop */}
       <div 
-        className={`fixed inset-0 bg-slate-900 text-white z-[60] transition-transform duration-300 ease-in-out flex flex-col ${
+        className={`fixed inset-0 bg-slate-900/20 backdrop-blur-sm z-[55] transition-opacity duration-300 md:hidden ${
+          isMobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+        }`}
+        onClick={() => setIsMobileMenuOpen(false)}
+        aria-hidden="true"
+      />
+
+      {/* Mobile Menu Drawer */}
+      <div 
+        className={`fixed inset-y-0 right-0 w-72 bg-white text-slate-900 z-[60] shadow-2xl transition-transform duration-300 ease-in-out flex flex-col md:hidden ${
           isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
-        <div className="flex items-center justify-between p-6">
+        <div className="flex items-center justify-between p-6 border-b border-slate-100">
           <div className="flex items-center">
-            <svg className="w-6 h-6 mr-2 text-white" viewBox="0 0 24 24" fill="currentColor">
+            <svg className="w-6 h-6 mr-2 text-slate-900" viewBox="0 0 24 24" fill="currentColor">
               <ellipse cx="12" cy="19" rx="9" ry="4" />
               <ellipse cx="12" cy="13" rx="6" ry="3" />
               <ellipse cx="12" cy="8" rx="4" ry="2" />
@@ -133,7 +143,7 @@ export function Navbar() {
           </div>
           <button 
             onClick={() => setIsMobileMenuOpen(false)}
-            className="p-2 rounded-md hover:bg-white/10 transition-colors"
+            className="p-2 -mr-2 rounded-md hover:bg-slate-100 transition-colors text-slate-500 hover:text-slate-900"
             aria-label="Close Mobile Menu"
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -141,12 +151,12 @@ export function Navbar() {
             </svg>
           </button>
         </div>
-        <div className="flex-1 flex flex-col items-center justify-center space-y-8">
+        <div className="flex-1 overflow-y-auto py-8 px-6 flex flex-col space-y-6">
           {navLinks.map((link) => (
             <Link 
               key={link.name} 
               to={link.path}
-              className="text-2xl font-medium hover:text-gray-300 transition-colors"
+              className="text-lg font-medium text-slate-600 hover:text-slate-900 transition-colors"
             >
               {link.name}
             </Link>
