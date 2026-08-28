@@ -13,11 +13,16 @@ interface ImageSequenceCanvasProps {
 export function ImageSequenceCanvas({ frames, progressRef, prefersReducedMotion, totalFrames, className = '' }: ImageSequenceCanvasProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
 
   useEffect(() => {
     let animationFrameId: number;
     let lastRenderedFrame = -1;
+    let lastCanvasW = 0;
+    let lastCanvasH = 0;
     const isMobile = window.innerWidth <= 768;
+    const maxDpr = isMobile ? 1.5 : 2;
+    const dpr = Math.min(window.devicePixelRatio || 1, maxDpr);
 
     const render = () => {
       const canvas = canvasRef.current;
@@ -27,39 +32,43 @@ export function ImageSequenceCanvas({ frames, progressRef, prefersReducedMotion,
         return;
       }
 
-      const ctx = canvas.getContext('2d');
+      // Cache the 2D context — only get it once
+      if (!ctxRef.current) {
+        ctxRef.current = canvas.getContext('2d', { alpha: false });
+      }
+      const ctx = ctxRef.current;
       if (!ctx) {
         animationFrameId = requestAnimationFrame(render);
         return;
       }
 
-      // Calculate the current frame instantly inside the loop
-      // Use half the static frame index on mobile since we have half the frames
+      // Calculate the current frame
       const staticFrame = isMobile ? 52 : 105;
       const currentFrameIndex = prefersReducedMotion 
         ? staticFrame 
         : getFrameIndex(progressRef.current, totalFrames);
 
-      // We always ensure the canvas size is correct according to the container
+      // Resize canvas only when container size actually changes
       const rect = container.getBoundingClientRect();
-      const viewportWidth = rect.width;
-      const viewportHeight = rect.height;
-      // Cap DPR at 1.5 on mobile to reduce canvas pixel count (~30% savings)
-      const maxDpr = isMobile ? 1.5 : 2;
-      const dpr = Math.min(window.devicePixelRatio || 1, maxDpr);
+      const targetW = Math.floor(rect.width * dpr);
+      const targetH = Math.floor(rect.height * dpr);
 
-      const needsResize = canvas.width !== Math.floor(viewportWidth * dpr) || canvas.height !== Math.floor(viewportHeight * dpr);
-
-      // Only resize if needed to avoid thrashing
-      if (needsResize) {
-        canvas.width = Math.floor(viewportWidth * dpr);
-        canvas.height = Math.floor(viewportHeight * dpr);
-        canvas.style.width = `${viewportWidth}px`;
-        canvas.style.height = `${viewportHeight}px`;
+      let didResize = false;
+      if (targetW !== lastCanvasW || targetH !== lastCanvasH) {
+        canvas.width = targetW;
+        canvas.height = targetH;
+        canvas.style.width = `${rect.width}px`;
+        canvas.style.height = `${rect.height}px`;
+        lastCanvasW = targetW;
+        lastCanvasH = targetH;
+        didResize = true;
+        // Context state is reset after resize, so re-apply settings
+        ctx.imageSmoothingEnabled = true;
+        ctx.imageSmoothingQuality = 'high';
       }
 
-      // If no resize and frame hasn't changed, skip drawing to save GPU
-      if (!needsResize && currentFrameIndex === lastRenderedFrame) {
+      // Skip drawing if frame hasn't changed and no resize
+      if (!didResize && currentFrameIndex === lastRenderedFrame) {
         animationFrameId = requestAnimationFrame(render);
         return;
       }
@@ -68,40 +77,27 @@ export function ImageSequenceCanvas({ frames, progressRef, prefersReducedMotion,
 
       const img = frames.getFrame(currentFrameIndex);
 
-      // Reset transform before drawing/clearing
+      // Reset transform
       ctx.setTransform(1, 0, 0, 1, 0, 0);
 
-      // High quality smoothing
-      ctx.imageSmoothingEnabled = true;
-      ctx.imageSmoothingQuality = 'high';
-
-      // Background color
+      // Background fill
       ctx.fillStyle = '#e8edf2';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       if (img) {
-        // Apply DPR scaling for drawing
         ctx.scale(dpr, dpr);
 
-        const canvasWidth = viewportWidth;
-        const canvasHeight = viewportHeight;
-        const sourceWidth = img.width;
-        const sourceHeight = img.height;
+        const viewW = rect.width;
+        const viewH = rect.height;
 
-        // Use a cover-style scale to fill the viewport (removes pillarboxing)
-        const scale = Math.max(
-          canvasWidth / sourceWidth,
-          canvasHeight / sourceHeight
-        );
+        // Cover-fit
+        const scale = Math.max(viewW / img.width, viewH / img.height);
+        const drawW = img.width * scale;
+        const drawH = img.height * scale;
+        const x = (viewW - drawW) / 2;
+        const y = (viewH - drawH) / 2;
 
-        const drawWidth = sourceWidth * scale;
-        const drawHeight = sourceHeight * scale;
-
-        // Center the frame
-        const x = (canvasWidth - drawWidth) / 2;
-        const y = (canvasHeight - drawHeight) / 2;
-
-        ctx.drawImage(img, x, y, drawWidth, drawHeight);
+        ctx.drawImage(img, x, y, drawW, drawH);
       }
 
       animationFrameId = requestAnimationFrame(render);
@@ -109,8 +105,10 @@ export function ImageSequenceCanvas({ frames, progressRef, prefersReducedMotion,
 
     render();
 
-    // The effect ONLY restarts if `frames` reference changes (which it rarely does), preventing loop tearing
-    return () => cancelAnimationFrame(animationFrameId);
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+      ctxRef.current = null;
+    };
   }, [frames, prefersReducedMotion, progressRef, totalFrames]);
 
   return (
@@ -119,4 +117,3 @@ export function ImageSequenceCanvas({ frames, progressRef, prefersReducedMotion,
     </div>
   );
 }
-

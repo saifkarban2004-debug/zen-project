@@ -81,19 +81,20 @@ export function useImageSequence(
       const loadNext = async (startIndex: number) => {
         if (!isActive) return;
         
+        // Keep concurrency low (3) to avoid starving the render loop
         const chunk = [];
-        for (let i = 0; i < 6 && startIndex + i < totalFrames; i++) {
+        for (let i = 0; i < 3 && startIndex + i < totalFrames; i++) {
           chunk.push(loadFrame(startIndex + i));
         }
         
         await Promise.all(chunk);
         
-        if (startIndex + 6 < totalFrames) {
+        if (startIndex + 3 < totalFrames) {
           // Use requestIdleCallback if available, else setTimeout
           if ('requestIdleCallback' in window) {
-            (window as any).requestIdleCallback(() => loadNext(startIndex + 6));
+            (window as any).requestIdleCallback(() => loadNext(startIndex + 3));
           } else {
-            setTimeout(() => loadNext(startIndex + 6), 50);
+            setTimeout(() => loadNext(startIndex + 3), 50);
           }
         }
       };

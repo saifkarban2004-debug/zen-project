@@ -1,12 +1,14 @@
 import { useEffect, useRef, useState, type RefObject } from 'react';
 
 // Easing factor: lower = smoother/slower, higher = faster/snappier
-const EASING = 0.08;
+// 0.08 was too slow and made scrolling feel laggy; 0.12 is responsive yet still smooth
+const EASING = 0.12;
 
 export function useScrollProgress(containerRef: RefObject<HTMLElement | null>) {
   const progressRef = useRef(0);
   const targetProgressRef = useRef(0);
   const [progressState, setProgressState] = useState(0);
+  const progressStateRef = useRef(0);
 
   useEffect(() => {
     let animationFrameId: number;
@@ -40,7 +42,8 @@ export function useScrollProgress(containerRef: RefObject<HTMLElement | null>) {
         
         // Only trigger React re-render if change is large enough (prevents thrashing)
         // Canvas will use progressRef directly for perfectly smooth 60fps
-        if (Math.abs(progressRef.current - progressState) > 0.01) {
+        if (Math.abs(progressRef.current - progressStateRef.current) > 0.01) {
+          progressStateRef.current = progressRef.current;
           setProgressState(progressRef.current);
         }
       }
