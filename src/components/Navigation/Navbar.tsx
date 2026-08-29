@@ -22,7 +22,7 @@ export function Navbar() {
       
       if (isHomePage) {
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        threshold = prefersReducedMotion ? window.innerHeight : (TOTAL_FRAMES * 40);
+        threshold = prefersReducedMotion ? window.innerHeight : (TOTAL_FRAMES * 25);
       }
 
       // We trigger the solid navbar slightly before the hero completely leaves the screen

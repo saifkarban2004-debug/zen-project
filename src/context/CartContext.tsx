@@ -19,11 +19,15 @@ export interface CartContextType {
   getItemCount: () => number;
   getSubtotal: () => number;
   getTotal: () => number;
+  isDrawerOpen: boolean;
+  openDrawer: () => void;
+  closeDrawer: () => void;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [items, setItems] = useState<CartItem[]>(() => {
     const savedCart = localStorage.getItem('zen-cart');
     if (savedCart) {
@@ -70,6 +74,7 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         }];
       }
     });
+    setIsDrawerOpen(true);
   };
 
   const removeItem = (productId: string) => {
@@ -105,6 +110,9 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     return getSubtotal(); // Can add tax/shipping here later
   };
 
+  const openDrawer = () => setIsDrawerOpen(true);
+  const closeDrawer = () => setIsDrawerOpen(false);
+
   return (
     <CartContext.Provider value={{
       items,
@@ -114,7 +122,10 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       clearCart,
       getItemCount,
       getSubtotal,
-      getTotal
+      getTotal,
+      isDrawerOpen,
+      openDrawer,
+      closeDrawer
     }}>
       {children}
     </CartContext.Provider>

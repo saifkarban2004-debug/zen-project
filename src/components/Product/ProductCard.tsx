@@ -31,16 +31,16 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onBuyNow }) =
   };
 
   return (
-    <div className="group bg-white rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden flex flex-col h-full">
+    <div className="group bg-white rounded-xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden flex flex-col h-full">
       <Link to={`/products/${product.slug}`} className="block relative aspect-[4/3] overflow-hidden bg-gray-100">
         {product.thumbnail ? (
           <img 
             src={product.thumbnail} 
             alt={product.name} 
-            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
           />
         ) : (
-          <div className={`w-full h-full ${getGradient(product.slug)} flex items-center justify-center transition-transform duration-300 group-hover:scale-105`}>
+          <div className={`w-full h-full ${getGradient(product.slug)} flex items-center justify-center transition-transform duration-500 group-hover:scale-105`}>
             <span className="text-white text-xl font-serif text-center px-4 shadow-sm font-medium">{product.name}</span>
           </div>
         )}
@@ -69,16 +69,16 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onBuyNow }) =
           )}
         </div>
         
-        <div className="mt-auto pt-4 flex gap-2">
+        <div className="mt-auto pt-4 flex gap-2 items-center">
           <Link 
             to={`/products/${product.slug}`}
-            className="flex-1 text-center py-2 px-4 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors duration-300"
+            className="flex-1 text-center py-2 px-4 text-sm font-medium text-gray-500 hover:text-[#4A6B5D] transition-colors duration-300"
           >
             View Details
           </Link>
           <button 
             onClick={handleBuyNow}
-            className="flex-1 py-2 px-4 bg-blue-600 rounded-lg text-sm font-medium text-white hover:bg-blue-700 transition-colors duration-300"
+            className="flex-1 py-2 px-4 bg-[#4A6B5D] hover:bg-[#3A5549] text-white rounded-lg text-sm font-medium transition-all duration-300"
           >
             Buy Now
           </button>

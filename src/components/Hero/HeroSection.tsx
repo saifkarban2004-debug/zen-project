@@ -29,7 +29,7 @@ export function HeroSection() {
   }, []);
 
   // Scroll height based on actual frame count (accounts for mobile step)
-  const scrollHeight = prefersReducedMotion ? '100vh' : `${framePaths.length * 40}px`;
+  const scrollHeight = prefersReducedMotion ? '100vh' : `${framePaths.length * 25}px`;
 
   return (
     <>

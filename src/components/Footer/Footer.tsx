@@ -3,12 +3,12 @@ import { Link } from 'react-router-dom';
 
 export function Footer() {
   return (
-    <footer className="bg-slate-900 text-white pt-16 pb-8">
+    <footer className="bg-forest text-white pt-16 pb-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
           <div>
             <h2 className="font-display text-3xl font-bold mb-4">Zen</h2>
-            <p className="text-lg font-medium text-slate-300 mb-2">Arohanc Collection</p>
+            <p className="text-lg font-medium text-slate-300 mb-2">Aromatic Collection</p>
             <p className="text-slate-400 text-sm leading-relaxed">
               Premium hand and body care crafted with natural ingredients. Experience tranquility in every drop.
             </p>
@@ -57,7 +57,7 @@ export function Footer() {
               />
               <button 
                 type="submit" 
-                className="bg-white text-slate-900 px-4 py-2 rounded-md font-semibold hover:bg-slate-200 transition-colors"
+                className="bg-sage text-white px-4 py-2 rounded-md font-semibold hover:bg-sage-dark transition-colors"
               >
                 Subscribe
               </button>
@@ -67,7 +67,7 @@ export function Footer() {
 
         <div className="border-t border-slate-800 pt-8 flex flex-col md:flex-row items-center justify-between">
           <p className="text-slate-400 text-sm mb-4 md:mb-0">
-            © {new Date().getFullYear()} Zen Arohanc Collection. All rights reserved.
+            © {new Date().getFullYear()} Zen Aromatic Collection. All rights reserved.
           </p>
           <div className="flex space-x-6">
             <a href="#" aria-label="Instagram" className="text-slate-400 hover:text-white transition-colors">

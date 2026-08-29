@@ -24,6 +24,7 @@ function ScrollToTop() {
 import { AdminProvider } from './context/AdminContext';
 import { LoginPage } from './pages/Admin/LoginPage';
 import { DashboardPage } from './pages/Admin/DashboardPage';
+import { CartDrawer } from './components/Cart/CartDrawer';
 
 function App() {
   return (
@@ -32,7 +33,8 @@ function App() {
         <BrowserRouter>
           <ScrollToTop />
           <Navbar />
-          <main className="min-h-screen">
+          <CartDrawer />
+          <main className="min-h-screen bg-ivory">
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/shop" element={<ShopPage />} />

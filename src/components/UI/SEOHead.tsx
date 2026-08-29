@@ -6,7 +6,7 @@ interface SEOHeadProps {
 }
 
 export function SEOHead({ 
-  title = 'Zen Arohanc Collection | Premium Hand & Body Care', 
+  title = 'Zen Aromatic Collection | Premium Hand & Body Care', 
   description = 'Experience the Zen difference with our premium, natural, cruelty-free hand and body care collection.' 
 }: SEOHeadProps) {
   useEffect(() => {

@@ -1,5 +1,21 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
 @import 'tailwindcss';
+
+@theme {
+  /* Luxury Earth-Toned Palette */
+  --color-ivory: #FAF8F5;
+  --color-linen: #F3EDE7;
+  --color-sage: #4A6B5D;
+  --color-sage-dark: #3A5549;
+  --color-sage-light: #5A7B6D;
+  --color-terracotta: #C48B71;
+  --color-terracotta-light: #D4A08A;
+  --color-sand: #D8B48D;
+  --color-charcoal: #1A1A1A;
+  --color-forest: #1E2E28;
+  --color-olive-grey: #6E7772;
+  --color-warm-grey: #A8A29E;
+}
 
 /* Base styles */
 html, body, #root {
@@ -11,6 +27,7 @@ html, body, #root {
 
 body {
   overflow-x: hidden;
+  background-color: #FAF8F5;
 }
 
 html {
@@ -23,19 +40,24 @@ html {
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #f1f5f9;
+  background: #F3EDE7;
 }
 ::-webkit-scrollbar-thumb {
-  background: #94a3b8;
+  background: #A8A29E;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #64748b;
+  background: #6E7772;
 }
 
 /* Utility for Playfair Display */
 .font-display {
   font-family: 'Playfair Display', serif;
+}
+
+/* Utility for Cormorant Garamond */
+.font-editorial {
+  font-family: 'Cormorant Garamond', serif;
 }
 
 /* Smooth animations */
@@ -48,6 +70,7 @@ html {
     scroll-behavior: auto;
   }
 }
+
 @keyframes slideDownFade {
   from {
     opacity: 0;
@@ -56,5 +79,16 @@ html {
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

@@ -15,9 +15,9 @@ export function ContactPage() {
 
   return (
     <div className="flex flex-col min-h-screen pt-20">
-      <SEOHead title="Contact | Zen Arohanc Collection" />
+      <SEOHead title="Contact | Zen Aromatic Collection" />
       
-      <div className="flex-grow py-20 px-4 bg-slate-50">
+      <div className="flex-grow py-20 px-4 bg-ivory">
         <div className="max-w-7xl mx-auto">
           <h1 className="font-display text-5xl font-bold text-center text-slate-900 mb-16">Get in Touch</h1>
           
@@ -103,7 +103,7 @@ export function ContactPage() {
                   </div>
                   <div>
                     <h4 className="font-semibold text-slate-900 text-lg">Email</h4>
-                    <p className="text-slate-600 mt-1">hello@zenarohanc.com</p>
+                    <p className="text-slate-600 mt-1">hello@zenaromatic.com</p>
                   </div>
                 </div>
 

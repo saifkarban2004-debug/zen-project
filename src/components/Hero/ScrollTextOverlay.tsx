@@ -65,7 +65,7 @@ export function ScrollTextOverlay({ progress }: { progress: number }) {
         }}
       >
         <span className="block text-xs md:text-sm tracking-[0.4em] text-slate-700 uppercase mb-4 font-semibold drop-shadow-sm">
-          The Arohanc Collection
+          The Aromatic Collection
         </span>
         <h2 className="text-4xl md:text-6xl font-serif text-slate-900 mb-6 drop-shadow-sm">
           Elevate Your <br/>Routine

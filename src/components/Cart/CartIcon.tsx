@@ -32,7 +32,7 @@ const CartIcon: React.FC<CartIconProps> = ({ className = '' }) => {
       
       {itemCount > 0 && (
         <span 
-          className="absolute -top-0.5 -right-0.5 inline-flex items-center justify-center w-5 h-5 text-xs font-bold leading-none text-white bg-blue-600 rounded-full transition-transform"
+          className="absolute -top-0.5 -right-0.5 inline-flex items-center justify-center w-5 h-5 text-xs font-bold leading-none text-white bg-sage rounded-full transition-transform"
           style={{ animation: 'scaleIn 0.2s ease-out' }}
         >
           {itemCount > 99 ? '99+' : itemCount}
