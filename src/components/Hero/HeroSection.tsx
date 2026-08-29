@@ -5,6 +5,7 @@ import { useImageSequence } from '../../hooks/useImageSequence';
 import { ImageSequenceCanvas } from '../ImageSequence/ImageSequenceCanvas';
 import { ScrollTextOverlay } from './ScrollTextOverlay';
 import { LoadingScreen } from './LoadingScreen';
+import { ScrollIndicator } from './ScrollIndicator';
 
 export function HeroSection() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -53,6 +54,15 @@ export function HeroSection() {
           />
           
           <ScrollTextOverlay progress={progressState} />
+
+          {/* Scroll Down Indicator */}
+          <div 
+            className={`absolute bottom-8 left-0 right-0 flex justify-center z-20 pointer-events-none transition-opacity duration-500 ${
+              progressState > 0.02 || !frames.isInitialBatchReady ? 'opacity-0' : 'opacity-100'
+            }`}
+          >
+            <ScrollIndicator />
+          </div>
         </div>
       </section>
     </>

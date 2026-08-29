@@ -21,9 +21,9 @@ export function getFrameConfig(): FrameConfig {
 
   if (isMobile) {
     return {
-      pattern: FRAME_PATTERN_WEBP_MOBILE,
+      pattern: FRAME_PATTERN_WEBP, // Use high-res frames even on mobile
       totalFrames: TOTAL_FRAMES,
-      step: 2, // Load every other frame on mobile
+      step: 2, // Load every other frame to save bandwidth/memory
       initialBatchSize: 15,
     };
   }

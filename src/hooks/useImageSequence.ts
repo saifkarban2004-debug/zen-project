@@ -32,7 +32,14 @@ export function useImageSequence(
         }
 
         const img = new Image();
-        img.onload = () => {
+        img.onload = async () => {
+          // Pre-decode off the main thread to prevent first-time draw jank!
+          try {
+            await img.decode();
+          } catch (e) {
+            // ignore
+          }
+          
           if (isActive) {
             cache.set(index, img);
             loadedCount.current += 1;
