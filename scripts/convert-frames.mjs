@@ -10,7 +10,7 @@ const FRAMES_DIR = path.join(__dirname, '..', 'public', 'frames');
 const WEBP_DIR = path.join(FRAMES_DIR, 'webp');
 const WEBP_MOBILE_DIR = path.join(FRAMES_DIR, 'webp-mobile');
 
-const WEBP_QUALITY = 85;
+const WEBP_QUALITY = 92;
 const MOBILE_SCALE = 0.5;
 
 const WEBP_OPTIONS = {

@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState, type RefObject } from 'react';
 
 // Easing factor: lower = smoother/slower, higher = faster/snappier
-// 0.08 was too slow and made scrolling feel laggy; 0.12 is responsive yet still smooth
-const EASING = 0.12;
+// 0.08 was laggy, 0.12 was better, 0.2 tracks scroll tightly with minimal lag
+const EASING = 0.2;
 
 export function useScrollProgress(containerRef: RefObject<HTMLElement | null>) {
   const progressRef = useRef(0);
